@@ -1,0 +1,6 @@
+Collecting protobuf
+  Downloading protobuf-3.12.4-cp37-cp37m-win_amd64.whl (1.0 MB)
+Collecting setuptools
+  Downloading setuptools-49.2.1-py3-none-any.whl (789 kB)
+Requirement already satisfied: six>=1.9 in c:\users\fado\pycharmprojects\ncdc_api\venv\lib\site-packages (from protobuf) (1.15.0)
+Installing collected packages: setuptools, protobuf
