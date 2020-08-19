@@ -10,6 +10,6 @@ class SamplesTested(APIView):
     serializer_class = CovidDataSerializer
 
     def get(self, request):
-        covid_data = CovidData.objects.filter().order_by('date')[0][0]
+        covid_data = CovidData.objects.filter().order_by('date')[0]
         serializer = CovidDataSerializer(covid_data)
         return Response(serializer.data)
