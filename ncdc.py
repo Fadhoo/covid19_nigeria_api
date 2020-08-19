@@ -29,6 +29,7 @@ soup = BeautifulSoup(source, 'html5lib')
 
 
 def get_ncdc_data():
+    # CovidData.objects.all().delete()
     date = datetime.now()
     samples_tested = soup.find('div', class_='card newcol order-card').span.text
     i = 0
@@ -54,4 +55,3 @@ def get_ncdc_data():
 
 get_ncdc_data()
 
-# move save func to views
