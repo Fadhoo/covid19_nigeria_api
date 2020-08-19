@@ -1,8 +1,15 @@
+import os
+
+import django
 from bs4 import BeautifulSoup
 import requests
 from datetime import datetime
+import ncdc_api.settings
 
-# from ncdc_data.models import CovidData
+os.environ['DJANGO_SETTINGS_MODULE'] = 'ncdc_api.settings'
+django.setup()
+
+from ncdc_data.models import CovidData
 
 source = requests.get('https://covid19.ncdc.gov.ng/').text
 
@@ -21,7 +28,7 @@ soup = BeautifulSoup(source, 'html5lib')
 #             print(state)
 
 
-def total_samples_tested():
+def get_ncdc_data():
     date = datetime.now()
     samples_tested = soup.find('div', class_='card newcol order-card').span.text
     i = 0
@@ -33,10 +40,18 @@ def total_samples_tested():
         cards.append({"title": title, "value": card[i]})
         i += i
 
-    print(cards[0]['date'])
+    print(cards)
+
+    # saving data to the db
+    model_instances = [CovidData(date=(cards[0]['date']),
+                                 samples_tested=(cards[1]['value']),
+                                 confirmed_cases=cards[2]['value'],
+                                 active_cases=cards[3]['value'],
+                                 discharged_cases=cards[4]['value'],
+                                 deaths=cards[5]['value'], )]
+    CovidData.objects.bulk_create(model_instances)
 
 
-total_samples_tested()
+get_ncdc_data()
 
-# def save(cards):
-#     CovidData.date = cards.
+# move save func to views

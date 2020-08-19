@@ -1,9 +1,15 @@
 from django.shortcuts import render
+from rest_framework.response import Response
 from rest_framework.views import APIView
-from ncdc import total_samples_tested
+from .models import CovidData
+from .serializers import CovidDataSerializer
+from rest_framework import filters
 
 
 class SamplesTested(APIView):
-    total_sample_tested = total_samples_tested()
+    serializer_class = CovidDataSerializer
 
-# Create your views here.
+    def get(self, request):
+        covid_data = CovidData.objects.filter().order_by('date')[0][0]
+        serializer = CovidDataSerializer(covid_data)
+        return Response(serializer.data)
