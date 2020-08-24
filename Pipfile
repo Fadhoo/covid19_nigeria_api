@@ -29,7 +29,7 @@ webencodings = "==0.5.1"
 whitenoise = "==5.0.1"
 wrapt = "==1.12.1"
 yarl = "==1.4.2"
-Django = "==3.0.5"
+Django = "==3.0.7"
 Werkzeug = "==1.0.1"
 
 [requires]
