@@ -6,7 +6,7 @@ from .serializers import CovidDataSerializer
 from rest_framework import filters
 
 
-class SamplesTested(APIView):
+class NcdcData(APIView):
     serializer_class = CovidDataSerializer
 
     def get(self, request):

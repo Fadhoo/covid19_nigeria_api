@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import SamplesTested
+from .views import NcdcData
 
 urlpatterns = [
-    path('samples_tested/', SamplesTested.as_view()),
+    path('ncdc_data/', NcdcData.as_view()),
 ]
