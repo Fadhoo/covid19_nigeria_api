@@ -18,9 +18,10 @@ soup = BeautifulSoup(source, 'html5lib')
 
 # print(soup.prettify())
 
-# for name in soup.find('thead').tr:
-#     table_head = name
-#     print(table_head)
+for name in soup.find('table'):
+    table_head = name
+    print(table_head)
+
 
 # for rows in soup.find_all('tr'):
 #     for row in rows:
@@ -53,5 +54,5 @@ def get_ncdc_data():
     CovidData.objects.bulk_create(model_instances)
 
 
-get_ncdc_data()
+# get_ncdc_data()
 
