@@ -15,7 +15,7 @@ class Home(APIView):
 
     def get(self, request):
         
-        json_obj = requests.get('https://covid19-nigeria-api-test.herokuapp.com/ncdc_data/')
+        json_obj = requests.get('https://covid19-nigeria-api-testy.herokuapp.com/ncdc_data/')
         json_data = json_obj.json()
         data = json_data[0]
         samples_tested = data['samples_tested']
@@ -25,7 +25,7 @@ class Home(APIView):
         discharged_cases = data['discharged_cases']
 
         last_month = json_data[1]
-        last_samples_tested = (last_month['samples_tested'])
+        last_samples_tested = last_month['samples_tested']
         last_active = last_month['active_cases']
         last_confirmed = last_month['confirmed_cases']
         last_deaths = last_month['deaths']

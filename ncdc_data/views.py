@@ -13,16 +13,16 @@ class NcdcData(APIView):
     serializer_class = CovidDataSerializer
 
     def get(self, request):
-        year = date.today().year
-        month = date.today().month
-        day = date.today().day
+        # year = date.today().year
+        # month = date.today().month
+        # day = date.today().day
         # lastest_data = CovidData.objects.filter().order_by('date')
 
         # if  lastest_data['date'].date() != date.today():
         #     get_ncdc_data()  
         
         covid_data = CovidData.objects.filter().order_by('date')[0]
-        last_month = CovidData.objects.filter(date='2020-10-31')
+        last_month = CovidData.objects.filter(date='2020-10-31')[0]
         serializer = CovidDataSerializer(covid_data)
         serializerL = CovidDataSerializer(last_month)
         return Response([serializer.data, serializerL.data])
