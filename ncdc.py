@@ -1,5 +1,5 @@
 import os
-
+from ncdc_api import settings
 import django
 from bs4 import BeautifulSoup
 import requests
@@ -18,10 +18,13 @@ soup = BeautifulSoup(source, 'html5lib')
 
 # print(soup.prettify())
 
-for name in soup.find('table'):
-    table_head = name
-    print(table_head)
+# for name in soup.find('table'):
+#     table = name
+#     saveFile = open( r"c:Users/FADO/Documents/django projects/covid19_nigeria_api/templates/table.txt", 'r')
+#     saveFile.write(table)
+#     saveFile.close()
 
+# Consider saving to the data, using regular expressions to extract to info 
 
 # for rows in soup.find_all('tr'):
 #     for row in rows:
@@ -54,5 +57,5 @@ def get_ncdc_data():
     CovidData.objects.bulk_create(model_instances)
 
 
-# get_ncdc_data()
+get_ncdc_data()
 
