@@ -21,8 +21,15 @@ class NcdcData(APIView):
         # if  lastest_data['date'].date() != date.today():
         #     get_ncdc_data()  
         
-        covid_data = CovidData.objects.filter().order_by('date')[0]
-        last_month = CovidData.objects.filter(date='2020-10-31')[0]
+        import datetime
+        today = datetime.date.today()
+        first = today.replace(day=1)
+        lastMonth = first - datetime.timedelta(days=1)
+        lst_mnth = lastMonth.strftime("%Y" + "-" + "%m" + "-" + "%d")
+        tday = today.strftime("%Y" + "-" + "%m" + "-" + "%d")
+
+        covid_data = CovidData.objects.filter(date=tday)[0]
+        last_month = CovidData.objects.filter(date=lst_mnth)[0]
         serializer = CovidDataSerializer(covid_data)
         serializerL = CovidDataSerializer(last_month)
         return Response([serializer.data, serializerL.data])
@@ -35,3 +42,4 @@ class Home(APIView):
 
     def get(self, request):
         return Response(template_name='index.html')
+        

@@ -15,7 +15,7 @@ class Home(APIView):
 
     def get(self, request):
         
-        json_obj = requests.get('https://covid19-nigeria-api-testy.herokuapp.com/ncdc_data/')
+        json_obj = requests.get('https://covid19-nigeria-api-test.herokuapp.com/ncdc_data/')
         json_data = json_obj.json()
         data = json_data[0]
         samples_tested = data['samples_tested']
