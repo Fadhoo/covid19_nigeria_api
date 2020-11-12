@@ -1,0 +1,803 @@
+{% load static %}
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <title>COVID-19 NIGERIA API Dashboard </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Fado">
+
+    <link rel="stylesheet" type="text/css" href='{% static "bootstrap/css/bootstrap.min.css"%}' />
+
+    <link href='{% static "css/main.css"%}' rel="stylesheet">
+    <link href='{% static "css/font-style.css"%}' rel="stylesheet">
+    <link href='{% static "css/flexslider.css"%}' rel="stylesheet">
+
+    <script type="text/javascript" src='{% static "js/jquery.js"%}'></script>    
+    <script type="text/javascript" src='{% static "bootstrap/js/bootstrap.min.js"%}'></script>
+
+	<script type="text/javascript" src='{% static "js/lineandbars.js"%}'></script>
+    
+	<script type="text/javascript" src='{% static "js/dash-charts.js"%}'></script>
+	<script type="text/javascript" src='{% static "js/gauge.js"%}'></script>
+	
+	<!-- NOTY JAVASCRIPT -->
+	<script type="text/javascript" src='{% static "js/noty/jquery.noty.js"%}'></script>
+	<script type="text/javascript" src='{% static "js/noty/layouts/top.js" %}'></script>
+	<script type="text/javascript" src='{% static "js/noty/layouts/topLeft.js"%}'></script>
+	<script type="text/javascript" src='{% static "js/noty/layouts/topRight.js"%}'></script>
+	<script type="text/javascript" src='{% static "js/noty/layouts/topCenter.js"%}'></script>
+	
+	<!-- You can add more layouts if you want -->
+	<script type="text/javascript" src='{% static "js/noty/themes/default.js"%}'></script>
+    <!-- <script type="text/javascript" src="assets/js/dash-noty.js"></script> This is a Noty bubble when you init the theme-->
+	<script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
+	<script src='{% static "js/jquery.flexslider.js"%}' type="text/javascript"></script>
+
+    <script type="text/javascript" src='{% static "js/admin.js"%}'></script>
+      
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	
+	<!-- DATA TABLE CSS -->
+    <link href='{% static "css/table.css"%}' rel="stylesheet">
+
+    <script type="text/javascript" src='{% static "js/jquery.js"%}'></script>    
+    <script type="text/javascript" src='{% static "bootstrap/js/bootstrap.min.js"%}'></script>
+
+    <script type="text/javascript" src='{% static "js/admin.js"%}'></script>
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+      }
+    </style>
+   
+
+  	<!-- Google Fonts call. Font Used Open Sans & Raleway -->
+	<link href="http://fonts.googleapis.com/css?family=Raleway:400,300" rel="stylesheet" type="text/css">
+	  <link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+
+	  
+<!-- DataTables Initialization -->
+<script type="text/javascript" src='{% static "js/datatables/jquery.dataTables.js"%}'></script>
+		<script type="text/javascript" charset="utf-8">
+			$(document).ready(function () {
+				$('#dt1').dataTable();
+			});
+</script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $("#btn-blog-next").click(function () {
+            $('#blogCarousel').carousel('next')
+        });
+        $("#btn-blog-prev").click(function () {
+            $('#blogCarousel').carousel('prev')
+        });
+
+        $("#btn-client-next").click(function () {
+            $('#clientCarousel').carousel('next')
+        });
+        $("#btn-client-prev").click(function () {
+            $('#clientCarousel').carousel('prev')
+        });
+
+    });
+
+    $(window).load(function () {
+
+        $('.flexslider').flexslider({
+            animation: "slide",
+            slideshow: true,
+            start: function (slider) {
+                $('body').removeClass('loading');
+            }
+        });
+    });
+
+	
+
+</script>    
+  </head>
+  <body>
+  
+  	<!-- NAVIGATION MENU -->
+
+    <div class="navbar-nav navbar-inverse navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="" alt=""> COVID-19 NIGERIA API Dashboard</a>
+        </div> 
+          <!-- <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>                            
+              <li><a href="tables.html"><i class="icon-th icon-white"></i> Tables</a></li>
+              <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li>
+              <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
+
+            </ul>
+          </div>/.nav-collapse -->
+        </div>
+    </div>
+
+    <div class="container">
+
+	  <!-- FIRST ROW OF BLOCKS -->     
+      <div class="row">
+
+      <!-- USER PROFILE BLOCK
+        <div class="col-sm-3 col-lg-3">
+      		<div class="dash-unit">
+	      		<dtitle>User Profile</dtitle>
+	      		<hr>
+				<div class="thumbnail">
+					<img src="images/face80x80.jpg" alt="Marcel Newman" class="img-circle">
+				</div>/thumbnail
+				<h1>Marcel Newman</h1>
+				<h3>Madrid, Spain</h3>
+				<br>
+					<div class="info-user">
+						<span aria-hidden="true" class="li_user fs1"></span>
+						<span aria-hidden="true" class="li_settings fs1"></span>
+						<span aria-hidden="true" class="li_mail fs1"></span>
+						<span aria-hidden="true" class="li_key fs1"></span>
+					</div>
+				</div>
+		</div> -->
+
+		<div class="col-sm-3 col-lg-3">
+		
+			<!-- COVID-19 NIGERIA BLOCK -->     
+			<div class="half-unit">
+				<dtitle><bold>COVID-19 NIGERIA</bold></dtitle>
+				
+				<div class="cont">
+				<p>{{date}}</p>
+				</div>
+			</div>
+	
+			<!-- Active Cases BLOCK -->     
+			<div class="half-unit">
+				<dtitle>Active Cases</dtitle>
+				<hr>
+				<div class="cont">
+				<p><bold>{{active}}</bold></p>
+				</div>
+			</div>
+	
+			</div>
+
+		<div class="col-sm-3 col-lg-3">
+		
+		<!-- Samples Tested BLOCK -->     
+		<div class="half-unit">
+			<dtitle>Samples Tested</dtitle>
+			<hr>
+			<div class="cont">
+			<p><bold>{{samples_tested}}</bold></p>
+			</div>
+		</div>
+
+		<!-- Confirmed Cases BLOCK -->     
+		<div class="half-unit">
+			<dtitle>Confirmed Cases</dtitle>
+			<hr>
+			<div class="cont">
+			<p><bold>{{confirmed}}</bold></p>
+			</div>
+		</div>
+
+		</div>
+
+		<div class="col-sm-3 col-lg-3">
+		
+			<!-- Discharged BLOCK -->     
+			<div class="half-unit">
+				<dtitle>Discharged</dtitle>
+				<hr>
+				<div class="cont">
+				<p><bold>{{discharged}}</bold></p>
+				</div>
+			</div>
+	
+			<!-- Deaths BLOCK -->     
+			<div class="half-unit">
+				<dtitle>Deaths</dtitle>
+				<hr>
+				<div class="cont">
+				<p><bold>{{deaths}}</bold></p>
+				</div>
+			</div>
+	
+			</div>
+
+		<!-- LAST MONTH DATA -->     
+        <div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+				<dtitle>Last Month Data</dtitle>
+				<hr>
+				<div class="cont">
+				  <p><bold>{{last_discharged}}</bold> | <ok>Discharged</ok></p>
+				  <br>
+				  <p><bold>{{last_active}}</bold> | Active Cases</p>
+				  <br>
+				  <p><bold>{{last_deaths}}</bold> | <bad>Deaths</bad></p>
+				  <br>
+				  <p><bold>{{last_samples_tested}}</bold> | Samples Tested</p>
+				  
+				  <p>{{lst_month}}</p>
+
+			    </div>
+
+		    </div>
+		</div>
+		
+
+		<!-- LATEST NEWS BLOCK     
+		<div class="col-sm-3 col-lg-3">
+			<div class="dash-unit">
+				<dtitle>Latest News</dtitle>
+				<hr>
+			  <div class="info-user">
+				  <span aria-hidden="true" class="li_news fs2"></span>
+			  </div>
+			  <br>
+				<div class="text">
+					<p><b>Alvarez.is:</b> A beautiful new Dashboard theme has been realised by Carlos Alvarez. Please, visit <a href="http://alvarez.is">Alvarez.is</a> for more details.</p>
+					<p><grey>Last Update: 5 minutes ago.</grey></p>
+				</div>
+			</div>
+		</div> -->
+
+        </div>
+      </div><!-- /row -->
+      
+      
+	  
+    </div><!-- /span3 -->
+
+    <div class="container" style="background-color: whitesmoke; padding-bottom: 40px;">
+
+		<!-- CONTENT -->
+	  <div class="row">
+		  <div class="col-sm-12 col-lg-12">
+		  <h4><strong>Confirmed Cases by State</strong></h4>
+  
+		  <table class="display" id="dt1">
+		<thead>
+		  <tr>
+		  <th>States Affected</th>
+		  <th>No. of Cases (Lab Confirmed)</th>
+		  <th>No. of Cases (on admission)</th>
+		  <th>No. Discharged</th>
+		  <th>No. of Deaths</th>
+		  </tr>
+		  </thead>
+		  
+		  
+		  <tbody>
+		  <tr>
+		  <td>
+		  Lagos
+		  </td>
+		   <td>21,212
+		  </td>
+		  <td>701
+		  </td>
+		  <td>20,296
+		  </td>
+		  <td>215
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  FCT
+		  </td>
+		  <td>6,053
+		  </td>
+		  <td>628
+		  </td>
+		  <td>5,344
+		  </td>
+		  <td>81
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Plateau
+		  </td>
+		  <td>3,630
+		  </td>
+		  <td>147
+		  </td>
+		  <td>3,450
+		  </td>
+		  <td>33
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Oyo
+		  </td>
+		  <td>3,447
+		  </td>
+		  <td>822
+		  </td>
+		  <td>2,582
+		  </td>
+		  <td>43
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Rivers
+		  </td>
+		  <td>2,810
+		  </td>
+		  <td>91
+		  </td>
+		  <td>2,660
+		  </td>
+		  <td>59
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Edo
+		  </td>
+		  <td>2,664
+		  </td>
+		  <td>33
+		  </td>
+		  <td>2,522
+		  </td>
+		  <td>109
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Kaduna
+		  </td>
+		  <td>2,648
+		  </td>
+		  <td>69
+		  </td>
+		  <td>2,536
+		  </td>
+		  <td>43
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Ogun
+		  </td>
+		  <td>2,031
+		  </td>
+		  <td>81
+		  </td>
+		  <td>1,920
+		  </td>
+		  <td>30
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Delta
+		  </td>
+		  <td>1,814
+		  </td>
+		  <td>28
+		  </td>
+		  <td>1,737
+		  </td>
+		  <td>49
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Kano
+		  </td>
+		  <td>1,747
+		  </td>
+		  <td>9
+		  </td>
+		  <td>1,684
+		  </td>
+		  <td>54
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Ondo
+		  </td>
+		  <td>1,666
+		  </td>
+		  <td>44
+		  </td>
+		  <td>1,585
+		  </td>
+		  <td>37
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Enugu
+		  </td>
+		  <td>1,314
+		  </td>
+		  <td>24
+		  </td>
+		   <td>1,269
+		  </td>
+		  <td>21
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Kwara
+		  </td>
+		  <td>1,069
+		  </td>
+		  <td>24
+		  </td>
+		  <td>1,019
+		  </td>
+		  <td>26
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Ebonyi
+		  </td>
+		  <td>1,049
+		  </td>
+		  <td>8
+		  </td>
+		  <td>1,011
+		  </td>
+		  <td>30
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Katsina
+		  </td>
+		  <td>952
+		  </td>
+		  <td>0
+		  </td>
+		  <td>928
+		  </td>
+		  <td>24
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Osun
+		  </td>
+		  <td>926
+		  </td>
+		  <td>4
+		  </td>
+		  <td>902
+		  </td>
+		  <td>20
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Abia
+		  </td>
+		  <td>898
+		  </td>
+		  <td>18
+		  </td>
+		  <td>872
+		  </td>
+		  <td>8
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Gombe
+		  </td>
+		  <td>883
+		  </td>
+		  <td>111
+		   </td>
+		  <td>747
+		  </td>
+		  <td>25
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Borno
+		  </td>
+		  <td>745
+		  </td>
+		  <td>4
+		  </td>
+		  <td>705
+		  </td>
+		  <td>36
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Bauchi
+		  </td>
+		  <td>713
+		  </td>
+		  <td>3
+		  </td>
+		  <td>696
+		  </td>
+		  <td>14
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Imo
+		  </td>
+		  <td>616
+		  </td>
+		  <td>21
+		  </td>
+		  <td>583
+		  </td>
+		  <td>12
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Benue
+		  </td>
+		  <td>493
+		  </td>
+		  <td>22
+		  </td>
+		  <td>460
+		  </td>
+		  <td>11
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Nasarawa
+		  </td>
+		  <td>482
+		  </td>
+		  <td>144
+		  </td>
+		  <td>325
+		  </td>
+		  <td>13
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Bayelsa
+		  </td>
+		  <td>412
+		  </td>
+		   <td>10
+		  </td>
+		  <td>381
+		  </td>
+		  <td>21
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Ekiti
+		  </td>
+		  <td>332
+		  </td>
+		  <td>6
+		  </td>
+		  <td>320
+		  </td>
+		  <td>6
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Jigawa
+		  </td>
+		  <td>325
+		  </td>
+		  <td>6
+		  </td>
+		  <td>308
+		  </td>
+		  <td>11
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Akwa Ibom
+		  </td>
+		  <td>295
+		  </td>
+		  <td>0
+		  </td>
+		  <td>287
+		  </td>
+		  <td>8
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Anambra
+		  </td>
+		  <td>277
+		  </td>
+		  <td>10
+		  </td>
+		  <td>248
+		  </td>
+		  <td>19
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Niger
+		  </td>
+		  <td>274
+		  </td>
+		  <td>3
+		  </td>
+		  <td>259
+		  </td>
+		  <td>12
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Adamawa
+		  </td>
+		  <td>257
+		  </td>
+		   <td>0
+		  </td>
+		  <td>238
+		  </td>
+		  <td>19
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Sokoto
+		  </td>
+		  <td>165
+		  </td>
+		  <td>1
+		  </td>
+		  <td>147
+		  </td>
+		  <td>17
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Taraba
+		  </td>
+		  <td>146
+		  </td>
+		  <td>33
+		  </td>
+		  <td>107
+		  </td>
+		  <td>6
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Kebbi
+		  </td>
+		  <td>93
+		  </td>
+		  <td>1
+		  </td>
+		  <td>84
+		  </td>
+		  <td>8
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Cross River
+		  </td>
+		  <td>87
+		  </td>
+		  <td>4
+		  </td>
+		  <td>74
+		  </td>
+		  <td>9
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Yobe
+		  </td>
+		  <td>82
+		  </td>
+		  <td>6
+		  </td>
+		  <td>68
+		  </td>
+		  <td>8
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Zamfara
+		  </td>
+		  <td>79
+		   </td>
+		  <td>1
+		  </td>
+		  <td>73
+		  </td>
+		  <td>5
+		  </td>
+		  </tr>
+		  <tr>
+		  <td>
+		  Kogi
+		  </td>
+		  <td>5
+		  </td>
+		  <td>0
+		  </td>
+		  <td>3
+		  </td>
+		  <td>2
+		  </td>
+		  </tr>
+		  </tbody>
+		</table><!--/END SECOND TABLE -->
+	  
+		  </div><!--/span12 -->
+		</div><!-- /row -->
+	   </div> <!-- /container -->  
+    
+			
+			
+     
+      
+      
+	</div> <!-- /container -->
+
+	<div id="footerwrap" >
+      	<footer class="clearfix"></footer>
+      	<div class="container">
+      		<div class="row">
+      			<div class="col-sm-12 col-lg-12">
+      			<p><img src="images/logo.png" alt=""></p>
+      			<p>Blocks Dashboard Theme - Crafted With Love - Copyright 2013</p>
+      			</div>
+
+      		</div><!-- /row -->
+      	</div><!-- /container -->		
+	</div><!-- /footerwrap -->
+          
+</body></html>
