@@ -22,14 +22,14 @@ class Home(APIView):
         
         json_obj = requests.get('https://covid19-nigeria-api-test.herokuapp.com/ncdc_data/')
         json_data = json_obj.json()
-        data = json_data[0]
+        data = json_data[0]['today']
         samples_tested = data['samples_tested']
         active = data['active_cases']
         confirmed = data['confirmed_cases']
         deaths = data['deaths']
         discharged_cases = data['discharged_cases']
 
-        last_month = json_data[1]
+        last_month = json_data[1]['last_month']
         last_samples_tested = last_month['samples_tested']
         last_active = last_month['active_cases']
         last_confirmed = last_month['confirmed_cases']
@@ -61,5 +61,3 @@ class Home(APIView):
 #         covid_data = CovidData.objects.filter().order_by('date')[0]
 #         serializer = CovidDataSerializer(covid_data)
 #         return Response(serializer.data)
-
-
