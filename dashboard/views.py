@@ -14,6 +14,11 @@ class Home(APIView):
     template_name = 'index.html'
 
     def get(self, request):
+
+        import datetime
+        today = datetime.date.today()
+        first = today.replace(day=1)
+        lastMonth = first - datetime.timedelta(days=1)
         
         json_obj = requests.get('https://covid19-nigeria-api-test.herokuapp.com/ncdc_data/')
         json_data = json_obj.json()
@@ -43,6 +48,8 @@ class Home(APIView):
             'last_confirmed': last_confirmed,
             'last_deaths': last_deaths,
             'last_discharged': last_discharged_cases,
+            'date':today,
+            'lst_month':lastMonth,
         }
 
         return Response(template_name='index.html', data=context)
