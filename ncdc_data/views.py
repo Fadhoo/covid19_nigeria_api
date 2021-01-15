@@ -32,6 +32,8 @@ class NcdcData(APIView):
         last_month = CovidData.objects.filter(date=lst_mnth)[0]
         serializer = CovidDataSerializer(covid_data)
         serializerL = CovidDataSerializer(last_month)
+        get_ncdc_data()
+
         return Response(data=[{'today':serializer.data}, {'last_month':serializerL.data}])
 
 
